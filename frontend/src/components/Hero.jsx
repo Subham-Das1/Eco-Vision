@@ -111,8 +111,6 @@ function Hero() {
                 absolute
                 inset-0
                 rounded-full
-                border
-                border-[#f5e7c2]/20
                 animate-pulse
               "
             />
