@@ -10,11 +10,11 @@ function Classify() {
         
         {/* Heading */}
         <div className="text-center">
-          <h2 className="text-5xl font-bold text-[#f5e7c2]">
+          <h2 className="text-5xl font-bold text-[#e6c77a]">
             Upload Your Waste
           </h2>
 
-          <p className="mt-5 text-lg text-[#d7d2c3] max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-5 text-lg text-[#ffffff] max-w-2xl mx-auto leading-relaxed">
             Take a photo or upload an image of waste material
             for instant AI classification
           </p>
@@ -26,10 +26,10 @@ function Classify() {
             mt-14
             border-2
             border-dashed
-            border-[#e4cf9a]/40
+            border-[#e6c77a]
             rounded-3xl
-            bg-[#1c3b24]
-            hover:bg-[#21452b]
+            bg-[#112716]
+            hover:bg-[#204820]
             transition-all
             duration-300
             p-14
@@ -53,6 +53,7 @@ function Classify() {
               items-center
               justify-center
               shadow-lg
+              animate-pulse
             "
           >
             <Upload
@@ -80,13 +81,17 @@ function Classify() {
           <button
             className="
               mt-8
-              bg-[#e4cf9a]
-              hover:bg-[#d6be82]
-              text-[#18361f]
+              bg-transparent
+              hover:bg-[#e6c77a]
+              hover:text-[#18361f]  
+              text-[#e6c77a]
+              border-2
+              border-dashed
+              border-[#e6c77a]
               px-8
               py-4
               rounded-2xl
-              font-semibold
+              font-bold
               shadow-lg
               transition-all
               duration-300

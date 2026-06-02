@@ -8,14 +8,14 @@ function Hero() {
         
         {/* Left Content */}
         <div>
-          <h1 className="text-5xl md:text-6xl font-bold leading-tight text-[#f5e7c2]">
+          <h1 className="text-5xl md:text-6xl font-bold leading-tight text-[#e4cf9a]">
             AI-Powered Smart
-            <span className="block text-[#e4cf9a]">
+            <span className="block text-[#e6c77a]">
               Waste Classification
             </span>
           </h1>
 
-          <p className="mt-6 text-lg leading-relaxed text-[#d7d2c3] max-w-xl">
+          <p className="mt-6 text-lg leading-relaxed text-[#ffffff] max-w-xl">
             Leverage cutting-edge AI to classify waste accurately
             and make informed disposal decisions. Contribute to a
             sustainable future with every classification.
@@ -25,8 +25,8 @@ function Hero() {
           <AnimatedButton
             className="
               mt-8
-              bg-[#e4cf9a]
-              hover:bg-[#d6be82]
+              bg-[#d6be82]
+              hover:bg-[#e6c77a]
               text-[#18361f]
               px-8
               py-4
@@ -44,7 +44,7 @@ function Hero() {
           </AnimatedButton>
 
           {/* Features */}
-          <div className="flex flex-wrap gap-6 mt-8 text-[#f3e6be]">
+          <div className="flex flex-wrap gap-6 mt-8 text-[#ffffff]">
             
             <div className="flex items-center gap-2">
               <span className="text-green-400 font-bold text-lg">

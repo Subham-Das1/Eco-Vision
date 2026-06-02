@@ -145,7 +145,7 @@ function Navbar() {
         duration-500
         ${
           scrolled
-            ? "py-3 bg-[#0d1c11]/70 backdrop-blur-2xl border-b border-[#2b4d33]"
+            ? "py-3 bg-[#0d1c11]/70 backdrop-blur-2xl border-b border-[#3fa457]"
             : "py-5 bg-transparent"
         }
       `}
@@ -154,7 +154,7 @@ function Navbar() {
       <div className="relative z-10 flex items-center gap-3">
         <div className="bg-[#e4cf9a] p-2 rounded-xl shadow-lg">
           <Leaf
-            className="text-[#18361f]"
+            className="text-[#18361f] "
             size={22}
           />
         </div>
@@ -186,7 +186,7 @@ function Navbar() {
           items-center
           gap-8
           border
-          border-[#355f3f]
+          border-[#3fa457]
           rounded-2xl
           px-6
           overflow-hidden
@@ -195,7 +195,7 @@ function Navbar() {
           ${
             scrolled
               ? "py-3 bg-[#112016]/80 backdrop-blur-2xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
-              : "py-4 bg-[#f0f0f0]/[0.03] backdrop-blur-xl"
+              : "py-4 bg-[#023c10]/80 backdrop-blur-xl"
           }
         `}
       >
