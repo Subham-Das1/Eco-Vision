@@ -2,6 +2,9 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Classify from "./components/Classify";
 import Analytics from "./components/Analytics";
+import Impact from "./components/Impact";
+import About from "./components/About";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -10,6 +13,9 @@ function App() {
       <Hero />
       <Classify />
       <Analytics />
+      <Impact />
+      <About />
+      <Footer />
     </div>
   );
 }
