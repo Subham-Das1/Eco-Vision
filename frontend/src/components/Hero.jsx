@@ -23,6 +23,11 @@ function Hero() {
 
           {/* Animated Button */}
           <AnimatedButton
+            onClick={() => {
+              document.getElementById("classify")?.scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
             className="
               mt-8
               bg-[#d6be82]
