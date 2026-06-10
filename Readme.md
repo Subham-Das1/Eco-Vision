@@ -1,66 +1,103 @@
-# 🌱 Eco Vision
+# 🌱 Eco Vision – AI-Powered Waste Classification System
 
-Eco Vision is an AI-powered waste classification platform that helps users identify whether waste is **Organic** or **Recyclable** using Deep Learning.
+Eco Vision is an intelligent waste classification platform that leverages Deep Learning to identify whether waste materials are **Organic** or **Recyclable**. The platform enables users to upload waste images and receive instant AI-powered predictions, confidence scores, and disposal recommendations to promote responsible waste management and environmental sustainability.
 
-Users can upload an image of waste material, and the system classifies it instantly while providing disposal recommendations to encourage responsible waste management.
+---
+
+## 🎯 Key Highlights
+
+* Achieved **92.04% Test Accuracy** using MobileNetV2 Transfer Learning
+* AI-powered waste classification
+* Real-time image prediction
+* Confidence score visualization
+* Waste disposal recommendations
+* Responsive modern user interface
+* React + Flask full-stack architecture
+* TensorFlow/Keras model integration
 
 ---
 
 ## 🚀 Features
 
-- AI-powered waste classification
-- Image upload and prediction
-- Organic vs Recyclable detection
-- Confidence score display
-- Disposal recommendations
-- Modern responsive UI
-- React frontend
-- Flask backend
-- TensorFlow / Keras model integration
+### AI Classification
+
+* Organic Waste Detection
+* Recyclable Waste Detection
+* Deep Learning-Based Prediction
+* Confidence Score Generation
+
+### User Experience
+
+* Image Upload Interface
+* Instant Prediction Results
+* Responsive Design
+* Interactive User Interface
+
+### Sustainability Support
+
+* Waste Segregation Awareness
+* Disposal Recommendations
+* Environmentally Responsible Decision Making
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
 ### Frontend
-- React.js
-- Tailwind CSS
-- Axios
-- Lucide React Icons
+
+* React.js
+* Tailwind CSS
+* Axios
+* Lucide React Icons
 
 ### Backend
-- Flask
-- Flask-CORS
 
-### AI / Machine Learning
-- TensorFlow
-- Keras
-- MobileNetV2 Transfer Learning
-- NumPy
-- Pillow
+* Flask
+* Flask-CORS
+
+### Artificial Intelligence
+
+* TensorFlow
+* Keras
+* MobileNetV2
+* Transfer Learning
+* NumPy
+* Pillow (PIL)
 
 ---
 
-## 🧠 Model Details
+## 🧠 Model Architecture
 
-The waste classification model was built using **MobileNetV2** with Transfer Learning.
+The waste classification model is built using **MobileNetV2** pre-trained on ImageNet and fine-tuned using Transfer Learning.
 
 ### Training Configuration
 
-| Parameter | Value |
-|------------|--------|
-| Architecture | MobileNetV2 |
-| Input Size | 224 x 224 |
-| Batch Size | 32 |
-| Epochs | 10 |
-| Optimizer | Adam |
-| Loss Function | Binary Crossentropy |
-| Output Classes | Organic, Recyclable |
+| Parameter         | Value               |
+| ----------------- | ------------------- |
+| Base Architecture | MobileNetV2         |
+| Input Size        | 224 × 224           |
+| Batch Size        | 32                  |
+| Epochs            | 10                  |
+| Optimizer         | Adam                |
+| Loss Function     | Binary Crossentropy |
+| Classes           | Organic, Recyclable |
 
-### Performance
+### Model Statistics
 
-- Test Accuracy: **88.26%**
-- Validation Accuracy: **~88%**
+| Metric                   | Value     |
+| ------------------------ | --------- |
+| Total Parameters         | 2,422,081 |
+| Trainable Parameters     | 164,097   |
+| Non-Trainable Parameters | 2,257,984 |
+
+### Performance Metrics
+
+| Metric              | Value      |
+| ------------------- | ---------- |
+| Test Accuracy       | **92.04%** |
+| Test Loss           | **0.2018** |
+| Validation Accuracy | **92.04%** |
+| Validation Loss     | **0.2018** |
 
 ---
 
@@ -72,7 +109,8 @@ eco-vision/
 ├── frontend/
 │   ├── src/
 │   ├── public/
-│   └── package.json
+│   ├── package.json
+│   └── vite.config.js
 │
 ├── backend/
 │   ├── app.py
@@ -84,12 +122,13 @@ eco-vision/
 
 ---
 
-## ⚙️ Installation
+## ⚙️ Installation & Setup
 
 ### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/eco-vision.git
+git clone https://github.com/Subham-Das1/eco-vision.git
+
 cd eco-vision
 ```
 
@@ -109,7 +148,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Backend runs at:
+Backend Server:
 
 ```text
 http://localhost:5000
@@ -127,7 +166,7 @@ npm install
 npm run dev
 ```
 
-Frontend runs at:
+Frontend Application:
 
 ```text
 http://localhost:5173
@@ -135,47 +174,64 @@ http://localhost:5173
 
 ---
 
-## 🖼️ How It Works
+## 🔄 Application Workflow
 
-1. Upload an image of waste.
-2. The image is sent to the Flask API.
-3. The TensorFlow model processes the image.
-4. The model predicts:
-   - Organic
-   - Recyclable
-5. Confidence score is returned.
-6. Results and disposal recommendations are displayed.
+1. User uploads a waste image.
+2. React frontend sends the image to the Flask backend.
+3. Flask preprocesses the image.
+4. TensorFlow model performs inference.
+5. Prediction and confidence score are generated.
+6. Results are returned to the frontend.
+7. Eco Vision displays classification and disposal recommendations.
 
 ---
 
 ## 🌍 Environmental Impact
 
-Eco Vision aims to promote sustainable waste management by helping users:
+Eco Vision promotes sustainable waste management by helping users:
 
-- Improve waste segregation
-- Reduce landfill waste
-- Increase recycling awareness
-- Encourage environmentally responsible disposal practices
+* Improve waste segregation practices
+* Reduce landfill contamination
+* Increase recycling awareness
+* Encourage responsible disposal behavior
+* Support sustainability initiatives
 
 ---
 
-## 📈 Future Improvements
+## 📸 Screenshots
 
-- Multi-class waste classification
-- Plastic detection
-- Glass detection
-- Metal detection
-- Paper detection
-- Real-time camera support
-- Location-based recycling guidance
-- Cloud deployment
-- Mobile application
+### Home Page
+
+(Add Screenshot)
+
+### Waste Upload Interface
+
+(Add Screenshot)
+
+### Classification Result
+
+(Add Screenshot)
+
+---
+
+## 🔮 Future Enhancements
+
+* Multi-Class Waste Classification
+* Plastic Detection
+* Glass Detection
+* Metal Detection
+* Paper Detection
+* E-Waste Recognition
+* Camera-Based Real-Time Classification
+* Cloud Deployment
+* Mobile Application
+* Location-Based Recycling Guidance
 
 ---
 
 ## 👨‍💻 Author
 
-Subham Das
+### Subham Das
 
 B.Tech Graduate | Full Stack Developer | AI Enthusiast
 
@@ -186,4 +242,4 @@ https://github.com/Subham-Das1
 
 ## 📜 License
 
-This project is developed for educational and portfolio purposes.
+This project is intended for educational, research, and portfolio purposes.
