@@ -201,15 +201,15 @@ Eco Vision promotes sustainable waste management by helping users:
 
 ### Home Page
 
-(Add Screenshot)
+![Home Page](./frontend/public/assets/home.png)
 
 ### Waste Upload Interface
 
-(Add Screenshot)
+![Upload Interface](./frontend/public/assets/classify.png)
 
 ### Classification Result
 
-(Add Screenshot)
+![Classification Result](./frontend/public/assets/result.png)
 
 ---
 
