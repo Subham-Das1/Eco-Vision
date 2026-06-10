@@ -109,8 +109,7 @@ eco-vision/
 ├── frontend/
 │   ├── src/
 │   ├── public/
-│   ├── package.json
-│   └── vite.config.js
+│   └── package.json
 │
 ├── backend/
 │   ├── app.py
