@@ -35,8 +35,8 @@ function Impact() {
     {
       icon: Target,
       title: "Sustainability Goal",
-      value: "2025",
-      desc: "Contributing to global sustainability targets by making waste management more accessible and effective for everyone.",
+      value: "2030",
+      desc: "Helping communities reduce landfill waste through intelligent waste classification."
     },
   ];
 

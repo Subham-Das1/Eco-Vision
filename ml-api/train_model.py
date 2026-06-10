@@ -12,9 +12,10 @@ import matplotlib.pyplot as plt
 TRAIN_DIR = r"D:\reactpr\archive\DATASET\Dataset\TRAIN"
 TEST_DIR = r"D:\reactpr\archive\DATASET\Dataset\TEST"
 
+
 IMG_SIZE = (224, 224)
 BATCH_SIZE = 32
-EPOCHS = 1
+EPOCHS = 10
 
 # ======================
 # DATA GENERATORS
