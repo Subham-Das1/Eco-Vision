@@ -22,6 +22,36 @@ function Classify() {
     }
   };
 
+  // const handleUpload = async () => {
+  //   if (!selectedFile) {
+  //     alert("Please choose an image first");
+  //     return;
+  //   }
+
+  //   try {
+  //     setLoading(true);
+
+  //     const formData = new FormData();
+  //     formData.append("image", selectedFile);
+
+  //     const response = await axios.post(
+  //       "https://eco-vision-fhzz.onrender.com/predict",
+  //       formData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     );
+
+  //     setResult(response.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert("Prediction failed");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const handleUpload = async () => {
     if (!selectedFile) {
       alert("Please choose an image first");
@@ -36,18 +66,21 @@ function Classify() {
 
       const response = await axios.post(
         "https://eco-vision-fhzz.onrender.com/predict",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        formData
       );
 
       setResult(response.data);
+
     } catch (error) {
-      console.error(error);
-      alert("Prediction failed");
+      console.error("Upload Error:", error);
+
+      if (error.response) {
+        console.log(error.response.data);
+        alert(error.response.data.message || "Prediction failed");
+      } else {
+        alert("Network Error");
+      }
+
     } finally {
       setLoading(false);
     }
