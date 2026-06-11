@@ -35,7 +35,7 @@ function Classify() {
       formData.append("image", selectedFile);
 
       const response = await axios.post(
-        "http://127.0.0.1:5000/predict",
+        "https://eco-vision-fhzz.onrender.com/predict",
         formData,
         {
           headers: {
