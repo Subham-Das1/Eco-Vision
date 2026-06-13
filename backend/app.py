@@ -19,11 +19,18 @@ CORS(
     }
 )
 
-# Load model
+print("===================================")
+print("Loading TensorFlow model...")
+print("===================================")
+
 model = tf.keras.models.load_model(
     "waste_classifier.keras",
     compile=False
 )
+
+print("===================================")
+print("Model loaded successfully!")
+print("===================================")
 
 CLASS_NAMES = [
     "Organic",
@@ -41,36 +48,62 @@ def home():
 @app.route("/predict", methods=["POST"])
 def predict():
 
-    # Debug logs
+    print("\n")
     print("===================================")
-    print("HEADERS:", request.headers)
-    print("CONTENT TYPE:", request.content_type)
-    print("FILES:", request.files)
-    print("FORM:", request.form)
+    print("NEW REQUEST RECEIVED")
     print("===================================")
-
-    if "image" not in request.files:
-        return jsonify({
-            "success": False,
-            "message": "No image uploaded",
-            "files_received": list(request.files.keys()),
-            "content_type": request.content_type
-        }), 400
 
     try:
+
+        print("HEADERS:", request.headers)
+        print("CONTENT TYPE:", request.content_type)
+        print("FILES:", request.files)
+        print("FORM:", request.form)
+
+        if "image" not in request.files:
+            return jsonify({
+                "success": False,
+                "message": "No image uploaded",
+                "files_received": list(request.files.keys()),
+                "content_type": request.content_type
+            }), 400
+
+        print("STEP 1: Image key found")
+
         file = request.files["image"]
 
-        # Preprocess image
+        print("STEP 2: File received")
+        print("Filename:", file.filename)
+
         image = Image.open(file).convert("RGB")
+
+        print("STEP 3: Image opened")
+        print("Original Size:", image.size)
+
         image = image.resize((224, 224))
 
+        print("STEP 4: Image resized")
+
         image_array = np.array(image, dtype=np.float32) / 255.0
+
+        print("STEP 5: Converted to numpy")
+        print("Shape:", image_array.shape)
+
         image_array = np.expand_dims(image_array, axis=0)
 
-        # Prediction
+        print("STEP 6: Batch dimension added")
+        print("New Shape:", image_array.shape)
+
+        print("STEP 7: Starting model prediction")
+
         prediction = model.predict(image_array, verbose=0)
 
+        print("STEP 8: Prediction completed")
+        print("Prediction:", prediction)
+
         score = float(prediction[0][0])
+
+        print("STEP 9: Score =", score)
 
         if score > 0.5:
             label = "Recyclable"
@@ -78,6 +111,9 @@ def predict():
         else:
             label = "Organic"
             confidence = (1 - score) * 100
+
+        print("STEP 10: Label =", label)
+        print("STEP 11: Confidence =", confidence)
 
         if label == "Organic":
             instructions = [
@@ -92,6 +128,8 @@ def predict():
                 "Separate from organic waste"
             ]
 
+        print("STEP 12: Sending response")
+
         return jsonify({
             "success": True,
             "prediction": label,
@@ -100,7 +138,11 @@ def predict():
         })
 
     except Exception as e:
-        print("ERROR:", str(e))
+
+        print("===================================")
+        print("ERROR OCCURRED")
+        print(str(e))
+        print("===================================")
 
         return jsonify({
             "success": False,
