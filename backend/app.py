@@ -5,9 +5,12 @@ import numpy as np
 from PIL import Image
 import os
 
+print("===================================")
+print("APP STARTED")
+print("===================================")
+
 app = Flask(__name__)
 
-# Allow requests from Vercel frontend
 CORS(
     app,
     resources={
@@ -19,18 +22,16 @@ CORS(
     }
 )
 
-print("===================================")
-print("Loading TensorFlow model...")
-print("===================================")
+print("Model exists:", os.path.exists("waste_classifier.keras"))
+print("BEFORE MODEL LOAD")
 
 model = tf.keras.models.load_model(
     "waste_classifier.keras",
     compile=False
 )
 
-print("===================================")
-print("Model loaded successfully!")
-print("===================================")
+print("AFTER MODEL LOAD")
+print("MODEL LOADED SUCCESSFULLY")
 
 CLASS_NAMES = [
     "Organic",
@@ -48,8 +49,7 @@ def home():
 @app.route("/predict", methods=["POST"])
 def predict():
 
-    print("\n")
-    print("===================================")
+    print("\n===================================")
     print("NEW REQUEST RECEIVED")
     print("===================================")
 
@@ -68,42 +68,42 @@ def predict():
                 "content_type": request.content_type
             }), 400
 
-        print("STEP 1: Image key found")
+        print("STEP 1: IMAGE FOUND")
 
         file = request.files["image"]
 
-        print("STEP 2: File received")
-        print("Filename:", file.filename)
+        print("STEP 2: FILE RECEIVED")
+        print("FILENAME:", file.filename)
 
         image = Image.open(file).convert("RGB")
 
-        print("STEP 3: Image opened")
-        print("Original Size:", image.size)
+        print("STEP 3: IMAGE OPENED")
+        print("ORIGINAL SIZE:", image.size)
 
         image = image.resize((224, 224))
 
-        print("STEP 4: Image resized")
+        print("STEP 4: IMAGE RESIZED")
 
         image_array = np.array(image, dtype=np.float32) / 255.0
 
-        print("STEP 5: Converted to numpy")
-        print("Shape:", image_array.shape)
+        print("STEP 5: NUMPY ARRAY CREATED")
+        print("SHAPE:", image_array.shape)
 
         image_array = np.expand_dims(image_array, axis=0)
 
-        print("STEP 6: Batch dimension added")
-        print("New Shape:", image_array.shape)
+        print("STEP 6: BATCH DIMENSION ADDED")
+        print("NEW SHAPE:", image_array.shape)
 
-        print("STEP 7: Starting model prediction")
+        print("STEP 7: STARTING PREDICTION")
 
         prediction = model.predict(image_array, verbose=0)
 
-        print("STEP 8: Prediction completed")
-        print("Prediction:", prediction)
+        print("STEP 8: PREDICTION COMPLETE")
+        print("RAW OUTPUT:", prediction)
 
         score = float(prediction[0][0])
 
-        print("STEP 9: Score =", score)
+        print("STEP 9: SCORE =", score)
 
         if score > 0.5:
             label = "Recyclable"
@@ -112,8 +112,8 @@ def predict():
             label = "Organic"
             confidence = (1 - score) * 100
 
-        print("STEP 10: Label =", label)
-        print("STEP 11: Confidence =", confidence)
+        print("STEP 10: LABEL =", label)
+        print("STEP 11: CONFIDENCE =", confidence)
 
         if label == "Organic":
             instructions = [
@@ -128,7 +128,7 @@ def predict():
                 "Separate from organic waste"
             ]
 
-        print("STEP 12: Sending response")
+        print("STEP 12: RETURNING RESPONSE")
 
         return jsonify({
             "success": True,
