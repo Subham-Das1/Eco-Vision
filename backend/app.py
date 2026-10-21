@@ -5,6 +5,10 @@ import numpy as np
 from PIL import Image
 import os
 
+# Limit TensorFlow resource usage
+tf.config.threading.set_intra_op_parallelism_threads(1)
+tf.config.threading.set_inter_op_parallelism_threads(1)
+
 print("===================================")
 print("APP STARTED")
 print("===================================")
