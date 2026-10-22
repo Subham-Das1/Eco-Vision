@@ -1,16 +1,20 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import tensorflow as tf
 import numpy as np
 from PIL import Image
 import os
 
-# Limit TensorFlow resource usage
-tf.config.threading.set_intra_op_parallelism_threads(1)
-tf.config.threading.set_inter_op_parallelism_threads(1)
+try:
+    import tflite_runtime.interpreter as tflite
+    print("Using lightweight TFLite Runtime")
+except ImportError:
+    import tensorflow as tf
+    tflite = tf.lite
+    print("Using TensorFlow Lite fallback for local testing")
 
+# Limit interpreter threads
 print("===================================")
-print("APP STARTED")
+print("ECO VISION TFLITE API STARTED")
 print("===================================")
 
 app = Flask(__name__)
@@ -26,21 +30,24 @@ CORS(
     }
 )
 
-print("Model exists:", os.path.exists("waste_classifier.keras"))
-print("BEFORE MODEL LOAD")
+MODEL_PATH = "waste_classifier.tflite"
 
-model = tf.keras.models.load_model(
-    "waste_classifier.keras",
-    compile=False
+print("TFLite model exists:", os.path.exists(MODEL_PATH))
+print("Loading TFLite model...")
+
+interpreter = tflite.Interpreter(
+    model_path=MODEL_PATH,
+    num_threads=1
 )
 
-print("AFTER MODEL LOAD")
-print("MODEL LOADED SUCCESSFULLY")
+interpreter.allocate_tensors()
 
-CLASS_NAMES = [
-    "Organic",
-    "Recyclable"
-]
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
+print("TFLite model loaded successfully!")
+
+CLASS_NAMES = ["Organic", "Recyclable"]
 
 
 @app.route("/")
@@ -53,61 +60,42 @@ def home():
 @app.route("/predict", methods=["POST"])
 def predict():
 
-    print("\n===================================")
-    print("NEW REQUEST RECEIVED")
-    print("===================================")
+    print("\nNEW PREDICTION REQUEST")
 
     try:
-
-        print("HEADERS:", request.headers)
-        print("CONTENT TYPE:", request.content_type)
-        print("FILES:", request.files)
-        print("FORM:", request.form)
-
         if "image" not in request.files:
             return jsonify({
                 "success": False,
-                "message": "No image uploaded",
-                "files_received": list(request.files.keys()),
-                "content_type": request.content_type
+                "message": "No image uploaded"
             }), 400
-
-        print("STEP 1: IMAGE FOUND")
 
         file = request.files["image"]
 
-        print("STEP 2: FILE RECEIVED")
-        print("FILENAME:", file.filename)
-
         image = Image.open(file).convert("RGB")
-
-        print("STEP 3: IMAGE OPENED")
-        print("ORIGINAL SIZE:", image.size)
-
         image = image.resize((224, 224))
 
-        print("STEP 4: IMAGE RESIZED")
+        image_array = np.array(
+            image,
+            dtype=np.float32
+        ) / 255.0
 
-        image_array = np.array(image, dtype=np.float32) / 255.0
+        image_array = np.expand_dims(
+            image_array,
+            axis=0
+        )
 
-        print("STEP 5: NUMPY ARRAY CREATED")
-        print("SHAPE:", image_array.shape)
+        interpreter.set_tensor(
+            input_details[0]["index"],
+            image_array
+        )
 
-        image_array = np.expand_dims(image_array, axis=0)
+        interpreter.invoke()
 
-        print("STEP 6: BATCH DIMENSION ADDED")
-        print("NEW SHAPE:", image_array.shape)
-
-        print("STEP 7: STARTING PREDICTION")
-
-        prediction = model.predict(image_array, verbose=0)
-
-        print("STEP 8: PREDICTION COMPLETE")
-        print("RAW OUTPUT:", prediction)
+        prediction = interpreter.get_tensor(
+            output_details[0]["index"]
+        )
 
         score = float(prediction[0][0])
-
-        print("STEP 9: SCORE =", score)
 
         if score > 0.5:
             label = "Recyclable"
@@ -115,9 +103,6 @@ def predict():
         else:
             label = "Organic"
             confidence = (1 - score) * 100
-
-        print("STEP 10: LABEL =", label)
-        print("STEP 11: CONFIDENCE =", confidence)
 
         if label == "Organic":
             instructions = [
@@ -132,8 +117,6 @@ def predict():
                 "Separate from organic waste"
             ]
 
-        print("STEP 12: RETURNING RESPONSE")
-
         return jsonify({
             "success": True,
             "prediction": label,
@@ -142,11 +125,7 @@ def predict():
         })
 
     except Exception as e:
-
-        print("===================================")
-        print("ERROR OCCURRED")
-        print(str(e))
-        print("===================================")
+        print("PREDICTION ERROR:", str(e))
 
         return jsonify({
             "success": False,
