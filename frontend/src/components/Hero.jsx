@@ -75,7 +75,7 @@ function Hero() {
         </div>
 
         {/* Right Side Visual */}
-        <div className="flex justify-center">
+        <div className="hidden md:flex justify-center">
           
           <div
             className="
